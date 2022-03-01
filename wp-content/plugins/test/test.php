@@ -19,3 +19,18 @@
     error_log("---------------");
  }
  add_action("delete_post", "test_delete_post", 10, 2);
+
+ 
+function test_esperente($text) {
+    $text = preg_replace('/[aáeéiíoóöőuúüű]/u', 'e', $text);
+    $text = preg_replace('/[AÁEÉIíOÓÖŐUÚÜŰ]/u', 'E', $text);
+    return $text;
+}
+add_filter('the_title', 'test_esperente');
+add_filter('the_content', 'test_esperente');
+
+function test_shortcode($args, $text) {
+return '"' . $text . '"';
+}
+
+add_shortcode('edezet', 'test_shortcode');
